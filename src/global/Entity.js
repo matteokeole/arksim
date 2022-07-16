@@ -25,10 +25,18 @@ export function Entity(
 	this.level = level;
 
 	if (level === null) {
-		let level = Rand.getInteger(1, LevelRange);
+		const range = Rand.getWeighted([
+			1.0,	// 54%,
+			0.5,	// 27%,
+			0.25,	// 13.5%,
+			0.1,	// 5.5%,
+		]);
+		console.log(range);
+
+		/*let level = Rand.getInteger(1, LevelRange);
 
 		level *= DifficultyOffset;
 
-		console.log(level)
+		console.log(level)*/
 	}
 };
