@@ -1,5 +1,6 @@
 import {DifficultyOffset, LevelRange} from "../settings/Difficulty.js";
 import Rand from "../modules/rand/index.js";
+import {BaseLevelWeights} from "./Presets.js";
 
 /**
  * Generates an entity.
@@ -22,21 +23,17 @@ export function Entity(
 	if (!species) throw new Error("Tried to instantiate a new Entity without an associated species.");
 
 	this.species = species;
-	this.level = level;
 
 	if (level === null) {
-		const range = Rand.getWeighted([
-			1.0,	// 54%,
-			0.5,	// 27%,
-			0.25,	// 13.5%,
-			0.1,	// 5.5%,
-		]);
-		console.log(range);
+		level = Rand.getWeightedLevel(BaseLevelWeights);
+		console.log(level);
 
 		/*let level = Rand.getInteger(1, LevelRange);
 
 		level *= DifficultyOffset;
 
-		console.log(level)*/
+		console.log(level)*/ 
 	}
+
+	this.level = level;
 };
