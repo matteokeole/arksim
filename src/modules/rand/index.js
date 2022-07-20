@@ -71,6 +71,8 @@ export default {
 				range = values[weights.indexOf(weight)].value;
 
 				// Find the current level
+				const maxCurrent = range.reduce((a, b) => a + b);
+				console.log(normalized, weight, normalized / (weight / range.length) + (weight / range.length))
 
 				break;
 			}
