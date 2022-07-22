@@ -1,4 +1,4 @@
-export default {
+export const Rand = {
 	/**
 	 * Returns a random number between min (inclusive) and max (exclusive).
 	 * 
@@ -27,30 +27,6 @@ export default {
 	 * @param	{array}	values
 	 * @returns	{number}
 	 */
-	getWeighted(values) {
-		const weights = values.map(value => value.weight);
-
-		// Get the weight min and max
-		let min = 0;
-		const max = weights.reduce((a, b) => a + b);
-
-		// Pick a random number between 0 and the weight sum
-		const n = this.getArbitrary(0, max);
-
-		let normalized;
-
-		for (const weight of weights) {
-			// Remove the minimum from the result
-			normalized = n - min;
-
-			if (normalized <= weight) return values[weights.indexOf(weight)].value;
-
-			// Get the minimum for the next weighted value
-			min += weight;
-		}
-
-		throw new Error("The result was not found in any weight interval.");
-	},
 	getWeightedLevel(values) {
 		const weights = values.map(value => value.weight);
 
@@ -59,7 +35,7 @@ export default {
 		const max = weights.reduce((a, b) => a + b);
 
 		// Pick a random number between 0 and the weight sum
-		const n = this.getArbitrary(0, max);
+		const n = Math.random() * max;
 
 		let normalized, range, level;
 
@@ -72,7 +48,14 @@ export default {
 
 				// Find the current level
 				const maxCurrent = range.reduce((a, b) => a + b);
-				console.log(normalized, weight, normalized / (weight / range.length) + (weight / range.length))
+				// console.log(normalized, "is in [ 0,", weight, "]")
+				// console.log("return range", range)
+				// console.log("range count", range.length)
+				let single = weight / range.length
+				// console.log("single item width", single)
+				let index = Math.ceil(normalized / single) - 1;
+				level = range[index];
+				// console.log("level", range[index])
 
 				break;
 			}
@@ -81,6 +64,27 @@ export default {
 			min += weight;
 		}
 
-		return range;
+		return level;
+	},
+	/**
+	 * Spreads randomly n into an object of point slots.
+	 * Returns the updated object.
+	 * 
+	 * @param	{number}	n
+	 * @param	{object}	slots
+	 * @returns	{object}
+	 */
+	distribute(n, slots) {
+		const keys = Object.keys(slots);
+
+		for (let p = 0, length = keys.length; p < n; p++) {
+			// console.log(`%cDistributing point n°${p + 1}`, "color: lightgray; font-style: italic");
+
+			const slot = keys[Math.floor(Math.random() * length)];
+
+			slots[slot]++;
+		}
+
+		return slots;
 	},
 };

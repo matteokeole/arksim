@@ -1,39 +1,58 @@
-import {DifficultyOffset, LevelRange} from "../settings/Difficulty.js";
-import Rand from "../modules/rand/index.js";
-import {BaseLevelWeights} from "./Presets.js";
+import {DifficultyOffset, Rand, UUID, Output} from "../index.js";
 
 /**
- * Generates an entity.
- * 
- * A species must be provided.
- * A list of optional settings can be given as well.
+ * Generates a new entity.
  * 
  * @constructor
- * @param	{Creature}		species
- * @param	{object}		settings
- * @param	{number}		settings.level
+ * @param	{Species}	species
+ * @param	{object}	[settings]
+ * @param	{number}	[settings.level]
+ * @param	{number}	[settings.genre]
  * @returns	{Entity}
  */
 export function Entity(
 	species,
 	{
 		level = null,
+		gender = null,
 	} = {},
 ) {
-	if (!species) throw new Error("Tried to instantiate a new Entity without an associated species.");
+	if (!species) throw new Error(Output.EntityWithoutSpecies);
+
+	UUID.call(this);
+
+	level ??= Rand.getWeightedLevel(species.levelWeights) * DifficultyOffset;
+
+	gender ??= Math.round(Math.random());
+
+	const points = Rand.distribute(
+		level - 1,
+		species.points,
+	);
+
+	const stats = structuredClone(species.stats);
+	stats.health	+= species.adds.health	* points.health;
+	stats.stamina	+= species.adds.stamina	* points.stamina;
+	stats.oxygen	+= species.adds.oxygen	* points.oxygen;
+	stats.food		+= species.adds.food	* points.food;
+	stats.weight	+= species.adds.weight	* points.weight;
+	stats.damage	+= species.adds.damage	* points.damage;
+	stats.torpidity	+= species.torpidityAdd	* (level - 1);
+
+	console.log(`%cWild ${gender ? "Female" : "Male"} ${species.name} - Lvl ${level}`, "color: gold; text-decoration: underline");
+	console.log("Species Base Statistics:");
+	console.table(species.stats);
+	console.log("Species Adds Per Level:");
+	console.table(species.adds);
+	console.log("Entity Points:");
+	console.table(points);
+	console.log("Entity Statistics:");
+	console.table(stats);
+	console.log(`%cEntity ID: ${this.uuid}`, "color: gray; font-style: italic");
 
 	this.species = species;
-
-	if (level === null) {
-		level = Rand.getWeightedLevel(BaseLevelWeights);
-		console.log(level);
-
-		/*let level = Rand.getInteger(1, LevelRange);
-
-		level *= DifficultyOffset;
-
-		console.log(level)*/ 
-	}
-
 	this.level = level;
+	this.gender = gender;
+	this.points = points;
+	this.stats = stats;
 };

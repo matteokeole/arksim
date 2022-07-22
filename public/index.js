@@ -1,5 +1,10 @@
 import {setDifficultyOffset, Entity, Species} from "../src/index.js";
 
-setDifficultyOffset(5.0);
+setDifficultyOffset(5);
 
-const argentavis = new Entity(new Species.Argentavis(), {});
+console.log("");
+
+const argentavis = new Entity(new Species.Argentavis(), {
+	// level: 150,
+	// gender: 0,
+});
