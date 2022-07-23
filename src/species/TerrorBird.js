@@ -1,28 +1,28 @@
 import {Preset} from "../index.js";
 
-export function Argentavis() {
-	this.name = "Argentavis";
+export function TerrorBird() {
+	this.name = "Terror Bird";
 
 	this.levelWeights = Preset.LevelWeights.Default;
 
 	this.stats = {
-		health: 365,
-		stamina: 400,
+		health: 270,
+		stamina: 160,
 		oxygen: 150,
-		food: 2000,
-		weight: 400,
-		damage: 25,
-		torpidity: 600,
+		food: 1500,
+		weight: 120,
+		damage: 18,
+		torpidity: 300,
 	};
 	this.adds = {
-		health: 73,
-		stamina: 20,
+		health: 54,
+		stamina: 16,
 		oxygen: 15,
-		food: 200,
-		weight: 8,
-		damage: 1.25,
+		food: 150,
+		weight: 2.4,
+		damage: 0.9,
 	};
-	this.torpidityAdd = 36;
+	this.torpidityAdd = 18;
 
 	this.points = {
 		health: 0,

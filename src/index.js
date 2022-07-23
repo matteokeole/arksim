@@ -1,8 +1,8 @@
 // Global & settings
 export {Entity} from "./global/Entity.js";
-export {LevelRange, DifficultyOffset, setDifficultyOffset} from "./settings/Difficulty.js";
 export {default as Output} from "./global/Output.js";
 export {UUID} from "./global/UUID.js";
+export {DifficultyOffset, setDifficultyOffset, LevelRange} from "./settings/Difficulty.js";
 
 // Species
 export * as Species from "./species/index.js";
@@ -11,5 +11,5 @@ export * as Species from "./species/index.js";
 export * as Preset from "./global/Presets.js";
 
 // Modules
-export {Rand} from "./modules/rand/index.js";
-export {generator} from "./modules/uuid/index.js";
+export {default as Rand} from "./modules/rand/index.js";
+export {default as UUIDGenerator} from "./modules/uuid/index.js";

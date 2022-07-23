@@ -1,1 +1,1 @@
-export {Argentavis} from "./Argentavis.js";
+export {TerrorBird} from "./TerrorBird.js";

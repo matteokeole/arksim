@@ -4,7 +4,7 @@ setDifficultyOffset(5);
 
 console.log("");
 
-const argentavis = new Entity(new Species.Argentavis(), {
+const terrorBird = new Entity(new Species.TerrorBird(), {
 	// level: 150,
 	// gender: 0,
 });

@@ -1,4 +1,4 @@
-import {generator} from "../index.js";
+import {UUIDGenerator} from "../index.js";
 
 /**
  * Appends a generated UUID to an object.
@@ -6,7 +6,7 @@ import {generator} from "../index.js";
  * @constructor
  */
 export function UUID() {
-	this.uuid = uuid.next().value;
+	this.uuid = generator.next().value;
 }
 
-const uuid = generator();
+const generator = UUIDGenerator();

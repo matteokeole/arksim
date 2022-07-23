@@ -1,4 +1,4 @@
-export const Rand = {
+export default {
 	/**
 	 * Returns a random number between min (inclusive) and max (exclusive).
 	 * 
