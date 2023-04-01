@@ -1,8 +1,6 @@
-import {setDifficultyOffset, Entity, Species} from "../src/index.js";
+import {Entity, Species, setDifficultyOffset} from "src";
 
 setDifficultyOffset(5);
-
-console.log("");
 
 const terrorBird = new Entity(new Species.TerrorBird(), {
 	// level: 150,

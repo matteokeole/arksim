@@ -1,18 +1,18 @@
-export default {
+export const Rand = {
 	/**
 	 * Returns a random number between min (inclusive) and max (exclusive).
 	 * 
-	 * @param	{number}	min
-	 * @param	{number}	max
-	 * @returns	{number}
+	 * @param {Number} min
+	 * @param {Number} max
+	 * @returns {Number}
 	 */
 	getArbitrary: (min, max) => Math.random() * (max - min) + min,
 	/**
 	 * Returns a random number between min (inclusive) and max (inclusive).
 	 * 
-	 * @param	{number}	min
-	 * @param	{number}	max
-	 * @returns	{number}
+	 * @param {Number} min
+	 * @param {Number} max
+	 * @returns {Number}
 	 */
 	getInteger(min, max) {
 		min = Math.ceil(min);
@@ -24,8 +24,8 @@ export default {
 	 * Picks a random number and returns the index of the weight interval that contains the number.
 	 * The weights are provided as an array of numbers. The sum of the weights doesn't need to be 1.
 	 * 
-	 * @param	{array}	values
-	 * @returns	{number}
+	 * @param {Array} values
+	 * @returns {Number}
 	 */
 	getWeightedLevel(values) {
 		const weights = values.map(value => value.weight);
@@ -70,9 +70,9 @@ export default {
 	 * Spreads randomly n into an object of point slots.
 	 * Returns the updated object.
 	 * 
-	 * @param	{number}	n
-	 * @param	{object}	slots
-	 * @returns	{object}
+	 * @param {Number} n
+	 * @param {Object} slots
+	 * @returns {Object}
 	 */
 	distribute(n, slots) {
 		const keys = Object.keys(slots);

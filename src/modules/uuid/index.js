@@ -1,9 +1,8 @@
 /**
  * Generates a random UUID using the Crypto API.
  * 
- * @generator
- * @yields {string}
+ * @yields {String}
  */
-export default function*() {
+export function* UUIDGenerator() {
 	while (true) yield crypto.randomUUID();
 };

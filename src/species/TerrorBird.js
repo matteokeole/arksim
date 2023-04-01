@@ -2,9 +2,7 @@ import {Preset} from "../index.js";
 
 export function TerrorBird() {
 	this.name = "Terror Bird";
-
 	this.levelWeights = Preset.LevelWeights.Default;
-
 	this.stats = {
 		health: 270,
 		stamina: 160,
@@ -23,7 +21,6 @@ export function TerrorBird() {
 		damage: 0.9,
 	};
 	this.torpidityAdd = 18;
-
 	this.points = {
 		health: 0,
 		stamina: 0,

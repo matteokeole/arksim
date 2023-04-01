@@ -3,32 +3,24 @@ import {DifficultyOffset, Rand, UUID, Output} from "../index.js";
 /**
  * Generates a new entity.
  * 
- * @constructor
- * @param	{Species}	species
- * @param	{object}	[settings]
- * @param	{number}	[settings.level]
- * @param	{number}	[settings.genre]
- * @returns	{Entity}
+ * @param {Species} species
+ * @param {Object} [options]
+ * @param {Number} [options.level]
+ * @param {Number} [options.genre]
+ * @returns {Entity}
  */
-export function Entity(
-	species,
-	{
-		level = null,
-		gender = null,
-	} = {},
-) {
+export function Entity(species, {
+	level,
+	gender,
+} = {}) {
 	if (!species) throw new Error(Output.EntityWithoutSpecies);
 
 	UUID.call(this);
 
 	level ??= Rand.getWeightedLevel(species.levelWeights) * DifficultyOffset;
-
 	gender ??= Math.round(Math.random());
 
-	const points = Rand.distribute(
-		level - 1,
-		species.points,
-	);
+	const points = Rand.distribute(level - 1, species.points);
 
 	const stats = structuredClone(species.stats);
 	stats.health	+= species.adds.health	* points.health;
@@ -40,6 +32,7 @@ export function Entity(
 	stats.torpidity	+= species.torpidityAdd	* (level - 1);
 
 	console.log(`%cWild ${gender ? "Female" : "Male"} ${species.name} - Lvl ${level}`, "color: gold; text-decoration: underline");
+	console.log(`%cEntity ID: ${this.uuid}`, "color: gray; font-style: italic");
 	console.log("Species Base Statistics:");
 	console.table(species.stats);
 	console.log("Species Adds Per Level:");
@@ -48,7 +41,6 @@ export function Entity(
 	console.table(points);
 	console.log("Entity Statistics:");
 	console.table(stats);
-	console.log(`%cEntity ID: ${this.uuid}`, "color: gray; font-style: italic");
 
 	this.species = species;
 	this.level = level;
